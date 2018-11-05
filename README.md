@@ -74,7 +74,7 @@ hotel.ratingAsStars() //=> ''
 hotel.urlSlug() //=> "hilton_metropole_london"
 
 var review1 = new Review(5, "Excellent hotel, very clean", "2018-12-17")
-review1.rating //=> 3
+review1.rating //=> 5
 review1.text //=> "Excellent hotel, very clean"
 review1.date //=> A javascript Date object for 2018-12-17
 review1.ratingAsStars() //=> "⭐️⭐️⭐️⭐️⭐"

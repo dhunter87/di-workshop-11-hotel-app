@@ -3,27 +3,29 @@ class Hotel {
         this.name = name
         this.city = city
         this.reviews = []
-        // this.rating = rating
     }
+
     reviewCount(){
         return this.reviews.length
     }
+
     rating(){
         if (this.reviewCount() == 0){
             return 0
         } 
     }
+
     ratingAsStars(){
-        if (this.reviewCount() == 0){
+        if (this.reviewCount() <= 0){
             return ''
         } 
     }
+
     urlSlug(){
         let slug = this.name + '_' + this.city
         slug = slug.replace(/ /g, '_').toLowerCase()
         return slug
     }
-
-
 }
+
 module.exports = Hotel

@@ -21,11 +21,12 @@ describe('Hotel', function() {
         // tear down
 
     })
-    it('Should return the hotels rating', () => {
+    it('1. Should return the hotels rating', () => {
         var hotel = new Hotel("Hilton Metropole", "London")
         expect(hotel.rating()).to.equal(0)
 
     })
+
     // TODO: impliment a second test for rating when reviews is not empty
 
     it('Should return no stars when there are no reviews', () => {
@@ -33,7 +34,7 @@ describe('Hotel', function() {
         expect(hotel.ratingAsStars()).to.equal('')
 
     })
-    it('Should return the holtel name and location with underscores indstead of spaces', () => {
+    it('Should return the hotel name and location with underscores indstead of spaces', () => {
         var hotel = new Hotel("Hilton Metropole", "London")
         expect(hotel.urlSlug()).to.equal('hilton_metropole_london')
 
