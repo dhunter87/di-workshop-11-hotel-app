@@ -1,32 +1,22 @@
 class Review {
-    constructor(rating, comment, date){
-        this.rating = rating
-        this.comment = comment
-        this.date = date
-    }
-    ratingAsStars(){
-        if (this.rating <= 0){
-            return ''
-        } 
-        else if (this.rating == 1){
-            return '⭐️'
-        } 
-        else if (this.rating == 2){
-            return '⭐️⭐️'
-        } 
-        else if (this.rating == 3){
-            return '⭐️⭐️⭐️'
-        } 
-        else if (this.rating == 4){
-            return '⭐️⭐️⭐️⭐'
-        } 
-        else if (this.rating >= 5){
-            return '⭐️⭐️⭐️⭐️⭐'
-        } 
-    }
+  constructor(rating, text, date) {
+    this.rating = parseInt(rating)
+    this.text = text
+    this.date = new Date(date)
+  }
 
-    
+  ratingAsStars() {
+    return '⭐️'.repeat(this.rating)
+  }
 
+  toJSON() {
+    return {
+      text: this.text,
+      rating: this.rating,
+      date: this.date,
+      ratingAsStars: this.ratingAsStars(),
+    }
+  }
 }
 
 module.exports = Review

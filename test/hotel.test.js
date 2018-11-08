@@ -1,47 +1,37 @@
-const chai = require('chai');
-const expect = chai.expect;
+var chai = require('chai')
+var expect = chai.expect
+chai.use(require('chai-datetime'))
+sinon = require('sinon')
 
-var Hotel = require('../models/hotels')
+var Hotel = require('../models/hotel')
+var Review = require('../models/review')
 
-describe('Hotel', function() {
-    it('should instantiate properly', () => {
-        var hotel = new Hotel("Hilton Metropole", "London")
-        expect(hotel.name).to.equal("Hilton Metropole")  
-        expect(hotel.city).to.equal("London")  
-        expect(hotel.reviews).to.deep.equal([])   
-    })  
+describe('Hotel', () => {
+  var hotel = new Hotel('Hilton Metropole', 'London')
 
-    it('Should return 0 rating when there are no reviews', () =>{
-        //set up
-        var hotel = new Hotel("Hilton Metropole", "London")
-        //exxcersize
-        var count = hotel.reviewCount()
-        //verify
-        expect(count).to.equal(0)
-        // tear down
+  it('instantiates properly', () => {
+    expect(hotel.name).to.eql('Hilton Metropole')
+    expect(hotel.city).to.eql('London')
+    expect(hotel.reviews).to.eql([])
+    expect(hotel.reviewCount()).to.eql(0)
+    expect(hotel.rating()).to.eql(0)
+    expect(hotel.ratingAsStars()).to.eql('')
+  })
 
-    })
-    it('1. Should return the hotels rating', () => {
-        var hotel = new Hotel("Hilton Metropole", "London")
-        expect(hotel.rating()).to.equal(0)
+  it('exposes a URL slug', () => {
+    expect(hotel.urlSlug()).to.equal('hilton_metropole_london')
+  })
 
-    })
+  it('allows the addition of hotels', () => {
+    var review1 = new Review(5, 'Excellent hotel, very clean', '2018-12-17')
+    var review2 = new Review(1, 'Terrible hotel, smelled of mice', '2018-01-01')
 
-    // TODO: impliment a second test for rating when reviews is not empty
+    hotel.addReview(review1)
+    hotel.addReview(review2)
 
-    it('Should return no stars when there are no reviews', () => {
-        var hotel = new Hotel("Hilton Metropole", "London")
-        expect(hotel.ratingAsStars()).to.equal('')
-
-    })
-    it('Should return the hotel name and location with underscores indstead of spaces', () => {
-        var hotel = new Hotel("Hilton Metropole", "London")
-        expect(hotel.urlSlug()).to.equal('hilton_metropole_london')
-
-    })
-    it('Should return the holtel name and location with underscores indstead of spaces', () => {
-        var hotel = new Hotel("one two three", "four five six")
-        expect(hotel.urlSlug()).to.equal('one_two_three_four_five_six')
-
-    })
-});
+    expect(hotel.reviews.length).to.equal(2)
+    expect(hotel.reviewCount()).to.equal(2)
+    expect(hotel.rating()).to.equal(3)
+    expect(hotel.ratingAsStars()).to.equal('⭐️⭐️⭐️')
+  })
+})
